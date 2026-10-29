@@ -60,14 +60,15 @@
             <div class="duration-chip"><span>⏱</span> 1분 동안 시선 움직임을 기록해요</div>
           </div>
           <div class="setting-block participant-block">
-            <label class="participant-label" for="participantCode">참가자 코드 <span>(선택 · 이름 대신 사용)</span></label>
+            <label class="participant-label" for="participantCode">학번 <span>(선택 · 이름 대신 사용)</span></label>
             <input id="participantCode" class="text-input" type="text" maxlength="32" autocomplete="off" placeholder="예: P001">
           </div>
           <div class="button-stack">
             <button class="primary-button" id="webcamStartButton"><span class="button-icon">◎</span> 웹캠 시선 추적으로 시작 <span class="button-arrow">→</span></button>
+            <button class="secondary-button" id="hybridStartButton"><span class="button-icon">◎↗</span> 시선 + 마우스 동시 추적</button>
             <button class="secondary-button" id="touchStartButton"><span class="button-icon">↗</span> 터치·마우스로 체험</button>
           </div>
-          <p class="privacy-note">웹캠 영상과 원시 시선 좌표는 저장하지 않아요. 테스트 결과 요약은 관리자가 설정한 Google Sheets로 전송할 수 있어요. 웹캠 모드는 카메라 권한이 필요합니다.</p>
+          <p class="privacy-note">웹캠 영상과 원시 시선 좌표는 저장하지 않아요. 결과에는 초반·중반·후반 지표가 포함됩니다. 동시 추적 모드에서는 시선과 마우스 결과를 따로 비교해요.</p>
           <p class="status-note" id="libraryStatus">시선 추적 라이브러리 확인 중…</p>
         </div>
       </section>
@@ -76,7 +77,7 @@
         <div class="dialog calibration-dialog">
           <div class="eyebrow"><span></span> STEP 01 / CALIBRATION</div>
           <h2>보정 점을 차례로 봐 주세요</h2>
-          <p>각 점을 바라보면서 천천히 3번씩 클릭해 주세요. 머리 위치와 화면 거리를 일정하게 유지하면 더 안정적으로 보정할 수 있어요.</p>
+          <p>눈을 각 점으로 옮긴 뒤 0.5~1초 정도 바라보면서 천천히 5번씩 클릭해 주세요. 클릭하는 동안 눈은 점에 두고, 머리 위치와 화면 거리를 일정하게 유지해 주세요.</p>
           <div class="calibration-count"><strong id="calibrationCount">1 / 9</strong><div class="meter-track"><span id="calibrationProgress"></span></div></div>
           <div class="calibration-points" id="calibrationPoints" aria-label="시선 보정 지점"></div>
           <button class="text-button" id="cancelCalibrationButton">취소하고 처음으로</button>
@@ -90,11 +91,28 @@
           <p class="lead" id="resultMessage">기록을 확인해 보세요.</p>
           <div class="score-ring"><strong id="resultAccuracy">--%</strong><span>목표 근처에 포착된 비율</span></div>
           <div class="result-grid">
-            <div><small>측정 샘플</small><strong id="resultSamples">0</strong></div>
-            <div><small>목표 근처 샘플</small><strong id="resultHits">0</strong></div>
-            <div><small>방식</small><strong id="resultMode">웹캠</strong></div>
+            <div><small>유효 측정</small><strong id="resultSamples">0</strong></div>
+            <div><small>목표 근처</small><strong id="resultHits">0</strong></div>
+            <div><small>측정 방식</small><strong id="resultMode">웹캠</strong></div>
           </div>
-          <p class="disclaimer">이 결과는 게임 중 추정된 시선 또는 포인터와 공의 거리를 요약한 참고값입니다. 의학적 진단이나 검증된 집중력 검사는 아니에요.</p>
+          <section class="phase-breakdown" aria-labelledby="phaseHeading">
+            <h3 id="phaseHeading">초반 · 중반 · 후반 집중 지표</h3>
+            <p class="phase-explainer">각 구간에서 추정 시선(또는 포인터)이 공 근처에 있었던 비율입니다. 집중력 자체를 확정하는 수치는 아니에요.</p>
+            <div class="phase-grid" id="phaseResults">
+              <div class="phase-card"><small>초반 · 0–20초</small><strong id="phaseEarlyScore">--%</strong><span id="phaseEarlySamples">측정 0회</span></div>
+              <div class="phase-card"><small>중반 · 20–40초</small><strong id="phaseMiddleScore">--%</strong><span id="phaseMiddleSamples">측정 0회</span></div>
+              <div class="phase-card"><small>후반 · 40–60초</small><strong id="phaseLateScore">--%</strong><span id="phaseLateSamples">측정 0회</span></div>
+            </div>
+            <div class="mouse-phase-wrap hidden" id="mousePhaseWrap">
+              <h4>마우스 포인터 기록 (비교용)</h4>
+              <div class="phase-grid mouse-phase-grid">
+                <div class="phase-card"><small>초반</small><strong id="mousePhaseEarlyScore">--%</strong><span id="mousePhaseEarlySamples">측정 0회</span></div>
+                <div class="phase-card"><small>중반</small><strong id="mousePhaseMiddleScore">--%</strong><span id="mousePhaseMiddleSamples">측정 0회</span></div>
+                <div class="phase-card"><small>후반</small><strong id="mousePhaseLateScore">--%</strong><span id="mousePhaseLateSamples">측정 0회</span></div>
+              </div>
+            </div>
+          </section>
+          <p class="disclaimer">이 점수는 공 근처에 머문 비율을 이용한 실험용 참고 지표이며, 실제 집중력을 확정하거나 의학적 진단을 하는 수치는 아닙니다. 비교 모드에서는 시선 점수와 마우스 점수를 따로 기록합니다.</p>
           <p class="status-note" id="saveStatus" role="status" aria-live="polite">결과 저장 상태를 확인하는 중…</p>
           <button class="primary-button" id="restartButton">다시 도전하기 <span class="button-arrow">↻</span></button>
         </div>

@@ -1,12 +1,12 @@
 :root {
   color-scheme: dark;
   --bg: #101528;
-  --surface: rgba(4, 5, 8, 0.86);
-  --line: rgba(246, 248, 255, 0.15);
+  --surface: rgba(21, 28, 52, .86);
+  --line: rgba(164, 184, 233, .15);
   --text: #f6f8ff;
   --muted: #9faaca;
-  --mint: #b9f3e1;
-  --blue: hsl(232, 91%, 82%);
+  --mint: #78f2cb;
+  --blue: #7b8cff;
   --target: #f8b34b;
 }
 * { box-sizing: border-box; }
@@ -69,3 +69,53 @@ input[type="range"] { width:100%; margin:17px 0 8px; accent-color:var(--mint); c
 }
 @media (max-height: 700px) and (min-width: 601px) { .app-shell { gap:9px; }.playfield { min-height:300px;height:56vh; }.dialog { padding:20px 24px; }.setting-block { padding:10px 12px;margin:7px 0; }.lead { margin-bottom:12px; }.privacy-note { margin-top:8px; } }
 @media (prefers-reduced-motion: reduce) { *,*::before,*::after { transition:none !important; } }
+
+/* v8: 눈으로 따라가는 포인터를 더 크게, 보기 쉽게 표시합니다. */
+.gaze-reticle {
+  width: 56px;
+  height: 56px;
+  border: 2px solid rgba(120, 242, 203, .95);
+  box-shadow: 0 0 0 7px rgba(120,242,203,.10), 0 0 26px rgba(120,242,203,.35);
+  background: rgba(120,242,203,.05);
+}
+.gaze-reticle::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border: 1px solid rgba(120,242,203,.3);
+  border-radius: 50%;
+}
+.gaze-reticle span {
+  width: 8px;
+  height: 8px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px rgba(120,242,203,.8);
+}
+.phase-breakdown {
+  margin: 18px 0 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(7,12,27,.24);
+  text-align: left;
+}
+.phase-breakdown h3 { margin: 0 0 5px; font-size: 13px; color: var(--text); }
+.phase-explainer { margin: 0 0 12px; color: #8f9dbf; font-size: 10px; line-height: 1.55; }
+.phase-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 7px; }
+.phase-card { min-width: 0; padding: 11px 6px; display: flex; flex-direction: column; align-items: center; gap: 6px; border: 1px solid rgba(120,242,203,.15); border-radius: 10px; background: rgba(120,242,203,.045); }
+.phase-card small { color: #8f9dbf; font-size: 9px; text-align: center; }
+.phase-card strong { font-size: clamp(19px, 4vw, 25px); color: var(--mint); font-variant-numeric: tabular-nums; }
+.phase-card span { color: #8f9dbf; font-size: 9px; text-align: center; }
+.mouse-phase-wrap { margin-top: 13px; padding-top: 12px; border-top: 1px solid var(--line); }
+.mouse-phase-wrap h4 { margin: 0 0 9px; color: #c1cbed; font-size: 11px; font-weight: 600; }
+.mouse-phase-grid .phase-card { border-color: rgba(123,140,255,.22); background: rgba(123,140,255,.055); }
+.mouse-phase-grid .phase-card strong { color: #aeb8ff; }
+@media (max-width: 600px) {
+  .gaze-reticle { width: 48px; height: 48px; }
+  .gaze-reticle::before { inset: -6px; }
+  .phase-breakdown { padding: 10px; }
+  .phase-card { padding: 9px 3px; }
+  .phase-card small, .phase-card span { font-size: 8px; }
+}
