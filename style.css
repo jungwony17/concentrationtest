@@ -191,3 +191,27 @@ input[type="range"] { width:100%; margin:17px 0 8px; accent-color:var(--mint); c
   flex: 0 0 auto !important;
   margin: 0 auto !important;
 }
+
+
+/* FOCUS LAB - 결과창 위쪽 잘림 최종 수정 */
+#resultOverlay.overlay {
+  align-items: flex-start !important;
+  justify-content: center !important;
+
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+
+  padding: 20px 12px 35px !important;
+  box-sizing: border-box !important;
+
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+#resultOverlay .result-dialog {
+  flex: 0 0 auto !important;
+  height: auto !important;
+  max-height: none !important;
+  margin: 0 auto 20px !important;
+}
+
