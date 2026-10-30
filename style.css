@@ -159,3 +159,35 @@ input[type="range"] { width:100%; margin:17px 0 8px; accent-color:var(--mint); c
   margin: 0 auto 24px !important;
   overflow: visible !important;
 }
+
+/* FOCUS LAB v12 - 결과창 전체 화면 수정 */
+
+#resultOverlay.overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100000 !important;
+
+  display: flex;
+  align-items: flex-start !important;
+  justify-content: center !important;
+
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+
+  padding: max(24px, env(safe-area-inset-top))
+           12px
+           max(40px, env(safe-area-inset-bottom)) !important;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+#resultOverlay .result-dialog {
+  width: min(100%, 510px) !important;
+  max-height: none !important;
+  flex: 0 0 auto !important;
+  margin: 0 auto !important;
+}
