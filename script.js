@@ -9,6 +9,7 @@
   const startOverlay = $('startOverlay');
   const calibrationOverlay = $('calibrationOverlay');
   const resultOverlay = $('resultOverlay');
+  document.body.appendChild(resultOverlay);
   const webcamStartButton = $('webcamStartButton');
   const touchStartButton = $('touchStartButton');
   const hybridStartButton = $('hybridStartButton');
