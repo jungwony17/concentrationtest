@@ -60,7 +60,7 @@
             <div class="duration-chip"><span>⏱</span> 1분 동안 시선 움직임을 기록해요</div>
           </div>
           <div class="setting-block participant-block">
-            <label class="participant-label" for="participantCode">학번 <span>(선택 · 이름 대신 사용)</span></label>
+            <label class="participant-label" for="participantCode">참가자 코드 <span>(선택 · 이름 대신 사용)</span></label>
             <input id="participantCode" class="text-input" type="text" maxlength="32" autocomplete="off" placeholder="예: P001">
           </div>
           <div class="button-stack">
@@ -83,8 +83,12 @@
           <button class="text-button" id="cancelCalibrationButton">취소하고 처음으로</button>
         </div>
       </section>
+    </section>
 
-      <section class="overlay hidden" id="resultOverlay">
+    <footer class="bottom-note"><span><i></i> FOCUS LAB PROTOTYPE</span><span>공은 모든 테스트에서 14초 동안 천천히 이동해요.</span></footer>
+  </main>
+    <!-- 결과창은 playfield(overflow:hidden) 바깥에 둬서 전체 화면에서 스크롤할 수 있습니다. -->
+  <section class="overlay hidden" id="resultOverlay">
         <div class="dialog result-dialog">
           <div class="eyebrow"><span></span> SESSION COMPLETE</div>
           <h2>테스트 완료<span>.</span></h2>
@@ -117,9 +121,5 @@
           <button class="primary-button" id="restartButton">다시 도전하기 <span class="button-arrow">↻</span></button>
         </div>
       </section>
-    </section>
-
-    <footer class="bottom-note"><span><i></i> FOCUS LAB PROTOTYPE</span><span>공은 모든 테스트에서 14초 동안 천천히 이동해요.</span></footer>
-  </main>
 </body>
 </html>
